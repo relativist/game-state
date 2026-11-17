@@ -1,0 +1,24 @@
+# Dependencies and test output
+node_modules/
+coverage/
+.playwright-cli/
+*.log
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+
+# Database backups and deployment snapshots
+*.dump
+*.backup
+deploy-backups/
+
+# Python helper artifacts
+__pycache__/
+*.py[cod]
+
+# Editor and OS files
+.idea/
+.vscode/
+.DS_Store

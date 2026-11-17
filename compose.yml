@@ -1,0 +1,28 @@
+services:
+  game-state:
+    build: .
+    environment:
+      DATABASE_URL: postgresql://game_state:${GAME_STATE_POSTGRES_PASSWORD:?Set GAME_STATE_POSTGRES_PASSWORD}@postgres:5432/game-state
+      CORS_ORIGINS: ${CORS_ORIGINS:-}
+    ports:
+      - "127.0.0.1:3005:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+  postgres:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_USER: game_state
+      POSTGRES_PASSWORD: ${GAME_STATE_POSTGRES_PASSWORD:?Set GAME_STATE_POSTGRES_PASSWORD}
+      POSTGRES_DB: game-state
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U game_state -d game-state"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    volumes:
+      - game-state-data:/var/lib/postgresql
+    restart: unless-stopped
+volumes:
+  game-state-data:

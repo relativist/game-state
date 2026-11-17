@@ -1,0 +1,17 @@
+{
+  "name": "game-state",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test test/*.test.js",
+    "test:integration": "node --test test/integration.js test/security.integration.js"
+  },
+  "dependencies": {
+    "pg": "^8.16.3"
+  }
+}
